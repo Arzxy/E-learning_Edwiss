@@ -31,6 +31,7 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
                   <th>Tempat Lahir</th>
                   <th>Tanggal Lahir</th>
                   <th>Agama</th>
+                  <th>Profile</th>
                   <th style="width: 150">Aksi</th>
                 </tr>
               </thead>
@@ -50,6 +51,7 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
                     <td><?= $data['tempat_lahir'] ?></td>
                     <td><?= $data['tanggal_lahir'] ?></td>
                     <td><?= $data['agama'] ?></td>
+                    <td style="display: flex; justify-content: center; align-items: center;"><img src="../../<?= $data['link_profile'] ?>" width="50" height="50" alt=""></td>
                     <td>
                       <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?nim=<?= $data['nim'] ?>">
                         <i class="fas fa-trash fa-fw"></i>
@@ -81,6 +83,7 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
               <thead>
                 <tr class="text-center">
                   <th>Nim</th>
+                  <th>Tagihan</th>
                   <th>Perguruan Tinggi</th>
                   <th>Program Studi</th>
                   <th>Angkatan</th>
@@ -102,6 +105,7 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
 
                   <tr>
                     <td><?= $data['nim'] ?></td>
+                    <td>Rp&nbsp;<?= number_format($data['tagihan'], 0,',',',') ?></td>
                     <td><?= $data['perguruan_tinggi'] ?></td>
                     <td><?= $data['program_studi'] ?></td>
                     <td><?= $data['angkatan'] ?></td>

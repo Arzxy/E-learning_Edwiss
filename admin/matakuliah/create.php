@@ -1,6 +1,7 @@
 <?php
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
+$jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
 ?>
 
 <section class="section">
@@ -26,6 +27,36 @@ require_once '../helper/connection.php';
               <tr>
                 <td>SKS</td>
                 <td><input class="form-control" type="number" max="6" name="sks"></td>
+              </tr>
+              <tr>
+                <td>Jurusan</td>
+                <td>
+                  <select class="form-control" name="nama_jurusan" id="nama_jurusan" required>
+                    <option value="">--Pilih Prodi--</option>
+                    <?php
+                    while ($r = mysqli_fetch_array($jurusan)) :
+                    ?>
+                      <option value="<?= $r['id'] ?>"><?= $r['nama_jurusan'] ?></option>
+                    <?php
+                    endwhile;
+                    ?>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Semester</td>
+                <td>
+                  <select class="form-control" name="semester" id="semester" required>
+                    <option value="">--Pilih Semester--</option>
+                    <?php
+                    for ($x = 1; $x <= 12; $x++) {
+                    ?>
+                      <option value=<?= $x ?>><?= $x ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>

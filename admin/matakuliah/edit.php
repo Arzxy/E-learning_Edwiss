@@ -4,6 +4,7 @@ require_once '../helper/connection.php';
 
 $kode_matkul = $_GET['kode_matkul'];
 $query = mysqli_query($connection, "SELECT * FROM matakuliah WHERE kode_matkul='$kode_matkul'");
+$jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
 ?>
 
 <section class="section">
@@ -33,6 +34,26 @@ $query = mysqli_query($connection, "SELECT * FROM matakuliah WHERE kode_matkul='
                 <tr>
                   <td>SKS</td>
                   <td><input class="form-control" type="number" name="sks" max="6" required value="<?= $row['sks'] ?>"></td>
+                </tr>
+                <tr>
+                  <td>Jurusan</td>
+                  <td>
+                    <select class="form-control" name="nama_jurusan" id="nama_jurusan" required>
+                      <?php
+                      while ($r = mysqli_fetch_array($jurusan)) :
+                      ?>
+                        <option value="<?= $r['id'] ?>" <?php if ($row['jurusan'] == $r['id']) {
+                                                                      echo "selected";
+                                                                    } ?>><?= $r['nama_jurusan'] ?></option>
+                      <?php
+                      endwhile;
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Semester</td>
+                  <td><input class="form-control" required value="<?= $row['semester'] ?>" disabled></td>
                 </tr>
                 <tr>
                   <td>

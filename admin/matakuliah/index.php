@@ -22,6 +22,8 @@ $result = mysqli_query($connection, "SELECT * FROM matakuliah");
                   <th>Kode Matkul</th>
                   <th>Nama Matakuliah</th>
                   <th>SKS</th>
+                  <th>Jurusan</th>
+                  <th>Semester</th>
                   <th style="width: 150">Aksi</th>
                 </tr>
               </thead>
@@ -36,6 +38,8 @@ $result = mysqli_query($connection, "SELECT * FROM matakuliah");
                     <td><?= $data['kode_matkul'] ?></td>
                     <td><?= $data['nama_matkul'] ?></td>
                     <td><?= $data['sks'] ?></td>
+                    <td><?= $data['jurusan'] ?></td>
+                    <td><?= $data['semester'] ?></td>
                     <td>
                       <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?kode_matkul=<?= $data['kode_matkul'] ?>">
                         <i class="fas fa-trash fa-fw"></i>

@@ -2,12 +2,12 @@
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
 
-$result = mysqli_query($connection, "SELECT * FROM dosen");
+$result = mysqli_query($connection, "SELECT * FROM jurusan");
 ?>
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>List Dosen</h1>
+    <h1>Nilai</h1>
     <a href="./create.php" class="btn btn-greenlight">Tambah Data</a>
   </div>
   <div class="row">
@@ -17,14 +17,9 @@ $result = mysqli_query($connection, "SELECT * FROM dosen");
           <div class="table-responsive">
             <table class="table table-hover table-striped w-100" id="table-1">
               <thead>
-                <tr>
-                  <th>NIDN</th>
-                  <th>Nik</th>
-                  <th>Nama dosen</th>
-                  <th>Jurusan</th>
-                  <th>Jenis Kelamin</th>
-                  <th>Alamat</th>
-                  <th>Profile</th>
+                <tr class="text-center">
+                  <th>ID</th>
+                  <th>Nama Prodi</th>
                   <th style="width: 150">Aksi</th>
                 </tr>
               </thead>
@@ -33,19 +28,15 @@ $result = mysqli_query($connection, "SELECT * FROM dosen");
                 while ($data = mysqli_fetch_array($result)) :
                 ?>
 
-                  <tr>
-                    <td><?= $data['nidn'] ?></td>
-                    <td><?= $data['nik'] ?></td>
-                    <td><?= $data['nama_dosen'] ?></td>
-                    <td><?= $data['jurusan'] ?></td>
-                    <td><?= $data['jenkel_dosen'] ?></td>
-                    <td><?= $data['alamat_dosen'] ?></td>
-                    <td style="display: flex; justify-content: center; align-items: center;"><img src="../../<?= $data['link_profile'] ?>" width="50" height="50" alt=""></td>
+                  <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                  <tr class="text-center">
+                    <td><?= $data['id'] ?></td>
+                    <td><?= $data['nama_jurusan'] ?></td>
                     <td>
-                      <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?nidn=<?= $data['nidn'] ?>">
+                      <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?id=<?= $data['id'] ?>">
                         <i class="fas fa-trash fa-fw"></i>
                       </a>
-                      <a class="btn btn-sm btn-info" href="edit.php?nidn=<?= $data['nidn'] ?>">
+                      <a class="btn btn-sm btn-info" href="edit.php?id=<?= $data['id'] ?>">
                         <i class="fas fa-edit fa-fw"></i>
                       </a>
                     </td>

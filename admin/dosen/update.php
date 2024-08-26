@@ -4,10 +4,11 @@ require_once '../helper/connection.php';
 
 $nidn = $_POST['nidn'];
 $nama_dosen = $_POST['nama'];
+$nama_jurusan = $_POST['nama_jurusan'];
 $jenkel = $_POST['jenkel'];
 $alamat = $_POST['alamat'];
 
-$query = mysqli_query($connection, "UPDATE dosen SET nama_dosen = '$nama_dosen', jenkel_dosen = '$jenkel', alamat_dosen = '$alamat' WHERE nidn = '$nidn'");
+$query = mysqli_query($connection, "UPDATE dosen SET nama_dosen = '$nama_dosen', jurusan = '$nama_jurusan', jenkel_dosen = '$jenkel', alamat_dosen = '$alamat' WHERE nidn = '$nidn'");
 if ($query) {
   $_SESSION['info'] = [
     'status' => 'success',

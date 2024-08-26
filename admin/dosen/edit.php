@@ -4,6 +4,7 @@ require_once '../helper/connection.php';
 
 $nidn = $_GET['nidn'];
 $query = mysqli_query($connection, "SELECT * FROM dosen WHERE nidn='$nidn'");
+$jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
 ?>
 
 <section class="section">
@@ -24,22 +25,42 @@ $query = mysqli_query($connection, "SELECT * FROM dosen WHERE nidn='$nidn'");
               <table cellpadding="8" class="w-100">
                 <tr>
                   <td>NIDN</td>
-                  <td><input class="form-control" type="number" name="nidn" size="20" required value="<?= $row['nidn'] ?>" disabled></td>
+                  <td><input class="form-control" type="text" name="nidn" size="20" required value="<?= $row['nidn'] ?>" disabled></td>
+                </tr>
+                <tr>
+                  <td>Nik</td>
+                  <td><input class="form-control" type="text" name="nik" size="20" required value="<?= $row['nik'] ?>" disabled></td>
                 </tr>
                 <tr>
                   <td>Nama Dosen</td>
                   <td><input class="form-control" type="text" name="nama" size="20" required value="<?= $row['nama_dosen'] ?>"></td>
                 </tr>
                 <tr>
+                  <td>Jurusan</td>
+                  <td>
+                    <select class="form-control" name="nama_jurusan" id="nama_jurusan" required>
+                      <?php
+                      while ($r = mysqli_fetch_array($jurusan)) :
+                      ?>
+                        <option value="<?= $r['id'] ?>" <?php if ($row['jurusan'] == $r['id']) {
+                                                                      echo "selected";
+                                                                    } ?>><?= $r['nama_jurusan'] ?></option>
+                      <?php
+                      endwhile;
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
                   <td>Jenis Kelamin</td>
                   <td>
                     <select class="form-control" name="jenkel" id="jenkel" required>
-                      <option value="Pria" <?php if ($row['jenkel_dosen'] == "Pria") {
+                      <option value="Laki-laki" <?php if ($row['jenkel_dosen'] == "Laki-laki") {
                                               echo "selected";
-                                            } ?>>Pria</option>
-                      <option value="Wanita" <?php if ($row['jenkel_dosen'] == "Wanita") {
+                                            } ?>>Laki-laki</option>
+                      <option value="Perempuan" <?php if ($row['jenkel_dosen'] == "Perempuan") {
                                                 echo "selected";
-                                              } ?>>Wanita</option>
+                                              } ?>>Perempuan</option>
                     </select>
                   </td>
                 </tr>

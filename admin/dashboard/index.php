@@ -5,11 +5,13 @@ require_once '../helper/connection.php';
 $mahasiswa = mysqli_query($connection, "SELECT COUNT(*) FROM mahasiswa");
 $dosen = mysqli_query($connection, "SELECT COUNT(*) FROM dosen");
 $matakuliah = mysqli_query($connection, "SELECT COUNT(*) FROM matakuliah");
+$jurusan = mysqli_query($connection, "SELECT COUNT(*) FROM jurusan");
 $nilai = mysqli_query($connection, "SELECT COUNT(*) FROM nilai");
 
 $total_mahasiswa = mysqli_fetch_array($mahasiswa)[0];
 $total_dosen = mysqli_fetch_array($dosen)[0];
 $total_matakuliah = mysqli_fetch_array($matakuliah)[0];
+$total_jurusan = mysqli_fetch_array($jurusan)[0];
 $total_nilai = mysqli_fetch_array($nilai)[0];
 ?>
 
@@ -71,10 +73,10 @@ $total_nilai = mysqli_fetch_array($nilai)[0];
           </div>
           <div class="card-wrap">
             <div class="card-header">
-              <h4>Total Nilai Masuk</h4>
+              <h4>Total Jurusan</h4>
             </div>
             <div class="card-body">
-              <?= $total_nilai ?>
+              <?= $total_jurusan ?>
             </div>
           </div>
         </div>

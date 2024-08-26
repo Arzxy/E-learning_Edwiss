@@ -2,12 +2,11 @@
 session_start();
 require_once '../helper/connection.php';
 
-$kode_matkul = $_POST['kode_matkul'];
-$nama_matkul = $_POST['nama_matkul'];
-$sks = $_POST['sks'];
+$id = $_POST['id'];
 $nama_jurusan = $_POST['nama_jurusan'];
 
-$query = mysqli_query($connection, "UPDATE matakuliah SET nama_matkul = '$nama_matkul', sks = '$sks', jurusan = '$nama_jurusan'  WHERE kode_matkul = '$kode_matkul'");
+$query = mysqli_query($connection, "UPDATE jurusan SET nama_jurusan = '$nama_jurusan' WHERE id='$id'");
+
 if ($query) {
   $_SESSION['info'] = [
     'status' => 'success',

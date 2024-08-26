@@ -25,7 +25,7 @@
         <a href="../matakuliah/index.php" class="nav-link"><i class="fas fa-book-open"></i> <span>Mata Kuliah</span></a>
       </li>
       <li>
-        <a href="../nilai/index.php" class="nav-link"><i class="fas fa-columns"></i> <span>Jurusan</span></a>
+        <a href="../jurusan/index.php" class="nav-link"><i class="fas fa-columns"></i> <span>Jurusan</span></a>
       </li>
     </ul>
   </aside>
