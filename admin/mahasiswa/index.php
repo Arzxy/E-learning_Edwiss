@@ -83,7 +83,6 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
               <thead>
                 <tr class="text-center">
                   <th>Nim</th>
-                  <th>Tagihan</th>
                   <th>Perguruan Tinggi</th>
                   <th>Program Studi</th>
                   <th>Angkatan</th>
@@ -105,7 +104,6 @@ $resultt = mysqli_query($connection, "SELECT * FROM mahasiswa_akademik");
 
                   <tr>
                     <td><?= $data['nim'] ?></td>
-                    <td>Rp&nbsp;<?= number_format($data['tagihan'], 0,',',',') ?></td>
                     <td><?= $data['perguruan_tinggi'] ?></td>
                     <td><?= $data['program_studi'] ?></td>
                     <td><?= $data['angkatan'] ?></td>

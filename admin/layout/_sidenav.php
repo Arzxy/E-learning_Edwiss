@@ -22,6 +22,9 @@
         <a href="../mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Mahasiswa</span></a>
       </li>
       <li>
+        <a href="../tagihan_mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Tagihan Mahasiswa</span></a>
+      </li>
+      <li>
         <a href="../matakuliah/index.php" class="nav-link"><i class="fas fa-book-open"></i> <span>Mata Kuliah</span></a>
       </li>
       <li>

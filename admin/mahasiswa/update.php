@@ -11,7 +11,15 @@ $alamat = $_POST['alamat'];
 $prodi = $_POST['prodi'];
 $tahun_masuk = $_POST['tahun_masuk'];
 
-$query = mysqli_query($connection, "UPDATE mahasiswa SET nama = '$nama', jenis_kelamin = '$jenkel', kota_kelahiran = '$kota_lahir', tanggal_kelahiran = '$tanggal_lahir', alamat = '$alamat', program_studi = '$prodi', tahun_masuk = '$tahun_masuk' WHERE nim = '$nim'");
+$query = mysqli_query($connection, "UPDATE mahasiswa 
+SET nama = '$nama', 
+jenis_kelamin = '$jenkel', 
+kota_kelahiran = '$kota_lahir', 
+tanggal_kelahiran = '$tanggal_lahir', 
+alamat = '$alamat', program_studi = '$prodi', 
+tahun_masuk = '$tahun_masuk' 
+WHERE nim = '$nim'");
+
 if ($query) {
   $_SESSION['info'] = [
     'status' => 'success',

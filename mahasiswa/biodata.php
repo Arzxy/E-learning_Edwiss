@@ -197,7 +197,7 @@
                     <p class="label-p">NIK</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_nik" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_nik" class="form-control" size="100" value="" disabled>
                         </div>
                     </div>
                     <p class="label-p">NPWP</p>
