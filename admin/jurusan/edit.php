@@ -9,7 +9,7 @@ $data = mysqli_fetch_array($query);
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>Ubah Data Nilai</h1>
+    <h1>Ubah Data Jurusan</h1>
     <a href="./index.php" class="btn btn-light">Kembali</a>
   </div>
   <div class="row">
@@ -21,11 +21,14 @@ $data = mysqli_fetch_array($query);
             <table cellpadding="8" class="w-100">
               <tr>
                 <td>ID</td>
-                <td><input class="form-control" type="text" name="id" max="100" value="<?php echo $id; ?>" disabled/></td>
+                <td>
+                  <input class="form-control" type="hidden" name="id" value="<?php echo $id; ?>"/>
+                  <input class="form-control" type="text" value="<?php echo $id; ?>" disabled/>
+                </td>
               </tr>
               <tr>
                 <td>Nama Prodi Lama</td>
-                <td><input class="form-control" type="text" name="nama_jurusan" max="100" value="<?php echo $data['nama_jurusan']; ?>" disabled/></td>
+                <td><input class="form-control" type="text" value="<?php echo $data['nama_jurusan']; ?>" disabled/></td>
               </tr>
               <tr>
                 <td>Nama Prodi Baru</td>

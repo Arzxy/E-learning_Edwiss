@@ -21,11 +21,13 @@ $jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
             <?php
             while ($row = mysqli_fetch_array($query)) {
             ?>
-              <input type="hidden" name="kode_matkul" value="<?= $row['kode_matkul'] ?>">
               <table cellpadding="8" class="w-100">
                 <tr>
                   <td>Kode Mata Kuliah</td>
-                  <td><input class="form-control" required value="<?= $row['kode_matkul'] ?>" disabled></td>
+                  <td>
+                    <input type="hidden" name="kode_matkul" value="<?= $row['kode_matkul'] ?>">
+                    <input class="form-control" required value="<?= $row['kode_matkul'] ?>" disabled>
+                  </td>
                 </tr>
                 <tr>
                   <td>Nama Mata Kuliah</td>

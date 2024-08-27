@@ -2,14 +2,15 @@
 session_start();
 require_once '../helper/connection.php';
 
-$id = $_GET['id'];
+$nim = $_POST['nim'];
+$tagihan_baru = $_POST['tagihan_baru'];
 
-$result = mysqli_query($connection, "DELETE FROM nilai WHERE id='$id'");
+$query = mysqli_query($connection, "UPDATE tagihan SET tagihan = '$tagihan_baru' WHERE nim='$nim'");
 
-if (mysqli_affected_rows($connection) > 0) {
+if ($query) {
   $_SESSION['info'] = [
     'status' => 'success',
-    'message' => 'Berhasil menghapus data'
+    'message' => 'Berhasil mengubah data'
   ];
   header('Location: ./index.php');
 } else {

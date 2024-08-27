@@ -7,7 +7,7 @@ $result = mysqli_query($connection, "SELECT * FROM jurusan");
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>Nilai</h1>
+    <h1>Jurusan</h1>
     <a href="./create.php" class="btn btn-greenlight">Tambah Data</a>
   </div>
   <div class="row">
@@ -28,7 +28,6 @@ $result = mysqli_query($connection, "SELECT * FROM jurusan");
                 while ($data = mysqli_fetch_array($result)) :
                 ?>
 
-                  <input type="hidden" name="id" value="<?= $row['id'] ?>">
                   <tr class="text-center">
                     <td><?= $data['id'] ?></td>
                     <td><?= $data['nama_jurusan'] ?></td>

@@ -18,6 +18,7 @@ $result = mysqli_query($connection, "SELECT * FROM dosen");
             <table class="table table-hover table-striped w-100" id="table-1">
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>NIDN</th>
                   <th>Nik</th>
                   <th>Nama dosen</th>
@@ -34,6 +35,7 @@ $result = mysqli_query($connection, "SELECT * FROM dosen");
                 ?>
 
                   <tr>
+                    <td><?= $data['id'] ?></td>
                     <td><?= $data['nidn'] ?></td>
                     <td><?= $data['nik'] ?></td>
                     <td><?= $data['nama_dosen'] ?></td>

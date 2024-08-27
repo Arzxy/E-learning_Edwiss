@@ -254,6 +254,7 @@ require_once '../layout/_bottom.php';
   };
 
   document.getElementById('nama_jurusan').addEventListener('change', function() {
+    document.getElementById('dosen_pa').value = "";
     adjustDosenPA();
   });
 </script>
@@ -263,7 +264,7 @@ require_once '../layout/_bottom.php';
     var selectedPeriodeMasuk = parseInt(this.value);
     var periodeAkhir = document.getElementById('periode_akhir');
     
-    periodeAkhir.innerHTML = '<option value="">--Pilih Periode Akhir--</option>';
+    periodeAkhir.innerHTML = '<option value="" style="display: none;"></option>';
     
     if (selectedPeriodeMasuk) {
       for (var i = selectedPeriodeMasuk; i <= selectedPeriodeMasuk + 6; i++) {

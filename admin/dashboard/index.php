@@ -2,7 +2,7 @@
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
 
-$mahasiswa = mysqli_query($connection, "SELECT COUNT(*) FROM mahasiswa");
+$mahasiswa = mysqli_query($connection, "SELECT COUNT(*) FROM mahasiswa_datadiri");
 $dosen = mysqli_query($connection, "SELECT COUNT(*) FROM dosen");
 $matakuliah = mysqli_query($connection, "SELECT COUNT(*) FROM matakuliah");
 $jurusan = mysqli_query($connection, "SELECT COUNT(*) FROM jurusan");

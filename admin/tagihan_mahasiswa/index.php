@@ -2,12 +2,12 @@
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
 
-$result = mysqli_query($connection, "SELECT * FROM nilai");
+$result = mysqli_query($connection, "SELECT * FROM tagihan");
 ?>
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>Nilai</h1>
+    <h1>Tagihan</h1>
     <a href="./create.php" class="btn btn-greenlight">Tambah Data</a>
   </div>
   <div class="row">
@@ -18,39 +18,34 @@ $result = mysqli_query($connection, "SELECT * FROM nilai");
             <table class="table table-hover table-striped w-100" id="table-1">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
                   <th>NIM</th>
-                  <th>Kode Mata Kuliah</th>
-                  <th>Semester</th>
-                  <th>Nilai</th>
+                  <th>Nama Mahasiswa</th>
+                  <th>Jalur Pendaftaran</th>
+                  <th>Status</th>
+                  <th>Tagihan</th>
                   <th style="width: 150">Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                $no = 1;
                 while ($data = mysqli_fetch_array($result)) :
                 ?>
 
                   <input type="hidden" name="id" value="<?= $row['id'] ?>">
                   <tr class="text-center">
-                    <td><?= $no ?></td>
                     <td><?= $data['nim'] ?></td>
-                    <td><?= $data['kode_matkul'] ?></td>
-                    <td><?= $data['semester'] ?></td>
-                    <td><?= $data['nilai'] ?></td>
+                    <td><?= $data['nama_mahasiswa'] ?></td>
+                    <td><?= $data['jalur_pendaftaran'] ?></td>
+                    <td><?= $data['status'] ?></td>
+                    <td>Rp&nbsp;<?= number_format($data['tagihan'], 0,',','.') ?></td>
                     <td>
-                      <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?id=<?= $data['id'] ?>">
-                        <i class="fas fa-trash fa-fw"></i>
-                      </a>
-                      <a class="btn btn-sm btn-info" href="edit.php?id=<?= $data['id'] ?>">
+                      <a class="btn btn-sm btn-info" href="edit.php?nim=<?= $data['nim'] ?>">
                         <i class="fas fa-edit fa-fw"></i>
                       </a>
                     </td>
                   </tr>
 
                 <?php
-                  $no++;
                 endwhile;
                 ?>
               </tbody>

@@ -21,11 +21,13 @@ $jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
             <?php
             while ($row = mysqli_fetch_array($query)) {
             ?>
-              <input type="hidden" name="nidn" value="<?= $row['nidn'] ?>">
               <table cellpadding="8" class="w-100">
                 <tr>
                   <td>NIDN</td>
-                  <td><input class="form-control" type="text" name="nidn" size="20" required value="<?= $row['nidn'] ?>" disabled></td>
+                  <td>
+                    <input type="hidden" name="nidn" value="<?= $row['nidn'] ?>">
+                    <input class="form-control" type="text" name="nidn" size="20" required value="<?= $row['nidn'] ?>" disabled>
+                  </td>
                 </tr>
                 <tr>
                   <td>Nik</td>
