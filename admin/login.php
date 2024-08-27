@@ -13,7 +13,10 @@ if (isset($_POST['submit'])) {
     $_SESSION['login'] = $row;
     header('Location: index.php');
   } else {
-    echo "<script type='text/javascript'>alert('Harap masukan Username & Password yang benar');</script>";
+    $_SESSION['info'] = [
+      'status' => 'failed',
+      'message' => "Harap masukan Username & Password yang benar"
+    ];
   }
 }
 ?>
@@ -32,6 +35,7 @@ if (isset($_POST['submit'])) {
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="assets/modules/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
@@ -41,7 +45,7 @@ if (isset($_POST['submit'])) {
 <body>
   <div id="app">
     <section class="section">
-      <div class="container mt-5">
+      <div class="container">
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
@@ -113,6 +117,39 @@ if (isset($_POST['submit'])) {
   <script src="assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
+  <script src="assets/modules/izitoast/js/iziToast.min.js"></script>
+
+  <!-- Page Specific JS File -->
+  <?php
+  if (isset($_SESSION['info'])) :
+    if ($_SESSION['info']['status'] == 'success') {
+  ?>
+      <script>
+        iziToast.success({
+          title: 'Sukses',
+          message: `<?= $_SESSION['info']['message'] ?>`,
+          position: 'topCenter',
+          timeout: 5000
+        });
+      </script>
+    <?php
+    } else {
+    ?>
+      <script>
+        iziToast.error({
+          title: 'Gagal',
+          message: `<?= $_SESSION['info']['message'] ?>`,
+          timeout: 5000,
+          position: 'topCenter'
+        });
+      </script>
+  <?php
+    }
+
+    unset($_SESSION['info']);
+    $_SESSION['info'] = null;
+  endif;
+  ?>
 
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
