@@ -16,6 +16,9 @@
       </li>
       <li class="menu-header">Feature</li>
       <li>
+        <a href="../jurusan/index.php" class="nav-link"><i class="fas fa-bullhorn"></i> <span>Info Singkat</span></a>
+      </li>
+      <li>
         <a href="../dosen/index.php" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> <span>Dosen</span></a>
       </li>
       <li>

@@ -1,3 +1,10 @@
+<?php
+require_once 'helper/auth.php';
+require_once 'helper/connection.php';
+
+isLogin();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,7 +207,7 @@
     </style>
 </head>
 <body id="body-pd">
-    <?php include('../header_1.php'); ?>
+    <?php include('layout/header_1.php'); ?>
 
 
 
@@ -298,7 +305,7 @@
 
 
     <div class="main-footer">
-        <?php include('../footer_1.php'); ?>
+        <?php include('layout/footer_1.php'); ?>
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>

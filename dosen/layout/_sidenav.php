@@ -16,19 +16,10 @@
       </li>
       <li class="menu-header">Feature</li>
       <li>
-        <a href="../dosen/index.php" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> <span>Dosen</span></a>
+        <a href="../dosen/index.php" class="nav-link"><i class="fas fa-calendar-check"></i> <span>Absensi Mahasiswa</span></a>
       </li>
       <li>
-        <a href="../mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Mahasiswa</span></a>
-      </li>
-      <li>
-        <a href="../tagihan_mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Tagihan Mahasiswa</span></a>
-      </li>
-      <li>
-        <a href="../matakuliah/index.php" class="nav-link"><i class="fas fa-book-open"></i> <span>Mata Kuliah</span></a>
-      </li>
-      <li>
-        <a href="../jurusan/index.php" class="nav-link"><i class="fas fa-columns"></i> <span>Jurusan</span></a>
+        <a href="../mahasiswa/index.php" class="nav-link"><i class="fas fa-business-time"></i> <span>Tugas Mahasiswa</span></a>
       </li>
     </ul>
   </aside>
