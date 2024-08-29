@@ -122,7 +122,7 @@ $result = mysqli_query($connection, "SELECT * FROM info_singkat ORDER BY id DESC
 	<div class="login-content" style="overflow: hidden; position: relative;">
         <img class="d-lg-block" style="display: none; background-size: cover; position: fixed; z-index: -3; top: 0; right: 0; width: 100%;" src="assets/image/background-pei.jpg" alt="EDWISS">
         <div class="main row">
-			<div class="col-12 col-lg-6" style="height:84vh ;background-color: white; padding-top: 30px; justify-content: center; display: flex;">
+			<div class="col-12 col-lg-6" style="background-color: white; padding-top: 30px; justify-content: center; display: flex;">
                 <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
                     <div class="judulku">
                         <img width="90" height="90" src="assets/image/logos.png" alt="EDWISS">
