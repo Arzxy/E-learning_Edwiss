@@ -239,7 +239,7 @@ isLogin();
             </ul>
         </div>
         
-        <div style="padding: 0px;!important;" class="card grafik table-responsive">
+        <div style="padding: 0px!important;" class="card grafik table-responsive">
             <table style="margin-bottom: 0px;" class="table table-striped table-hover table-borderless">
                 <thead style="border-bottom: 2px solid #dbdbdb;">
                     <tr>
@@ -479,9 +479,9 @@ isLogin();
 
 
 
-    <div class="main-footer">
+    <!-- <div class="main-footer">
         <?php include('layout/footer_1.php'); ?>
-    </div>
+    </div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>

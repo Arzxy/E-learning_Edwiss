@@ -1,4 +1,4 @@
-    <style>
+    <!-- <style>
         footer {
             backdrop-filter: blur(30px);
             padding: 1.5rem 2px;
@@ -20,4 +20,4 @@
     <hr>
     <footer>
         <p>Copyright © 2024 Edwiss. All rights reserved.</p>
-    </footer>
+    </footer> 
