@@ -186,7 +186,14 @@ isLogin();
                     <div class="subtitle">Total tunggakan terakhir</div>
                 </div>
             </div>
-           
+            <div class="col-12 pb-3">
+                <div class="card grafik h-100">
+                    <h3>Grafik IPS dan IPK</h3>
+                    <hr>
+                    <div class="value">Kepengennya gini, Angka dibawah itu Semester, Angka di samping kiri itu IPS/IPK nya</div>
+                    <div class="subtitle">Link: https://www.malasngoding.com/membuat-grafik-dari-database-mysql-dan-php-dengan-chart-js/</div>
+                </div>
+            </div>
         </div>
     </div>
 
