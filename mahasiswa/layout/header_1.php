@@ -236,15 +236,15 @@
         <div class="header_toggle">
             <i class='bx bx-menu' id="header-toggle"></i>
         </div>
-        <div class="header_toggle2">
+        <div class="header_toggle2" style="overflow: hidden;">
             <div class="profile_siswa pointer" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="header_img"> 
                     <img src="../assets/image/profile_newbie.png" alt="">
                 </div>
                 <div class="profile_detail">
                     <div class="header_nama">
-                        <p class="p-nama">Muhammad Akmal Rizki</p>
-                        <p class="p-nim">202304023</p>
+                        <p class="p-nama"><?= $_SESSION['login']['mahasiswa_datadiri']['nama'] ?></p>
+                        <p class="p-nim"><?= $_SESSION['login']['mahasiswa_datadiri']['nim'] ?></p>
                     </div>
                     <div class="header_pembuka">
                         <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="#7e8490">
@@ -253,9 +253,9 @@
                     </div>
                 </div>
             </div>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" style="transition: 0s !important; width: 100%;">
                 <a href="../logout.php" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i>&ensp;Logout
                 </a>
             </div>
         </div>

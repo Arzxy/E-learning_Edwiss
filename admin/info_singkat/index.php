@@ -2,32 +2,12 @@
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
 
-// $result = mysqli_query($connection, "SELECT * FROM matakuliah");
-
-$result = mysqli_query($connection, "
-    SELECT 
-        mk.smt, 
-        mk.kode_matkul, 
-        mk.nama_matkul, 
-        d.nama_dosen, 
-        mk.sks, 
-        j.nama_jurusan, 
-        mk.semester 
-    FROM 
-        matakuliah mk
-    JOIN 
-        dosen d ON mk.dosen = d.id
-    JOIN 
-        jurusan j ON mk.jurusan = j.id
-    ORDER BY 
-        mk.semester, mk.kode_matkul
-");
-
+$result = mysqli_query($connection, "SELECT * FROM info_singkat");
 ?>
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>List Mata Kuliah</h1>
+    <h1>Info Singkat</h1>
     <a href="./create.php" class="btn btn-greenlight">Tambah Data</a>
   </div>
   <div class="row">
@@ -38,42 +18,30 @@ $result = mysqli_query($connection, "
             <table class="table table-hover table-striped w-100" id="table-1">
               <thead>
                 <tr class="text-center">
-                  <th>No</th>
-                  <th>Kode Matkul</th>
-                  <th>Nama Matakuliah</th>
-                  <th>SKS</th>
-                  <th>Jurusan</th>
-                  <th>Dosen</th>
-                  <th>Semester</th>
+                  <th>ID</th>
+                  <th>Pesan Informasi</th>
                   <th style="width: 150">Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                $no = 1;
                 while ($data = mysqli_fetch_array($result)) :
                 ?>
 
                   <tr class="text-center">
-                    <td><?= $no ?></td>
-                    <td><?= $data['kode_matkul'] ?></td>
-                    <td><?= $data['nama_matkul'] ?></td>
-                    <td><?= $data['sks'] ?></td>
-                    <td><?= $data['nama_jurusan'] ?></td>
-                    <td><?= $data['nama_dosen'] ?></td>
-                    <td><?= $data['semester'] ?> (<?= $data['smt'] ?>)</td>
+                    <td><?= $data['id'] ?></td>
+                    <td><?= $data['pesan'] ?></td>
                     <td>
-                      <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?kode_matkul=<?= $data['kode_matkul'] ?>">
+                      <a class="btn btn-sm btn-danger mb-md-0 mb-1" href="delete.php?id=<?= $data['id'] ?>">
                         <i class="fas fa-trash fa-fw"></i>
                       </a>
-                      <a class="btn btn-sm btn-info" href="edit.php?kode_matkul=<?= $data['kode_matkul'] ?>">
+                      <a class="btn btn-sm btn-info" href="edit.php?id=<?= $data['id'] ?>">
                         <i class="fas fa-edit fa-fw"></i>
                       </a>
                     </td>
                   </tr>
 
                 <?php
-                  $no++;
                 endwhile;
                 ?>
               </tbody>

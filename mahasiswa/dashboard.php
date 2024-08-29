@@ -2,6 +2,24 @@
 require_once 'helper/auth.php';
 require_once 'helper/connection.php';
 
+$nim = $_SESSION['login']['mahasiswa_datadiri']['nim'];
+$tabels = [
+    'mahasiswa_datadiri', 
+    'mahasiswa_akademik', 
+    'mahasiswa_alamat', 
+    'mahasiswa_biodata_ayah', 
+    'mahasiswa_biodata_ibu',
+    'tagihan'
+];
+foreach ($tabels as $tabel) {
+    $sql = "SELECT * FROM $tabel WHERE nim='$nim' LIMIT 1";
+    $result = mysqli_query($connection, $sql);
+    $data = mysqli_fetch_assoc($result);
+    if ($data) {
+        $_SESSION['login'][$tabel] = $data;
+    }
+}
+
 isLogin();
 ?>
 
@@ -13,6 +31,10 @@ isLogin();
     <title>Dashboard - Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+
+    <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <style>
         /* WAJIB ADA SETIAP PAGE */
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
@@ -84,11 +106,12 @@ isLogin();
         }
         /* END */
         .card {
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             color: white;
             margin-bottom: 20px;
             box-shadow: 0 2px 6px -2px gray;
+            justify-content: center;
         }
         .card h3 {
             margin: 0;
@@ -126,8 +149,8 @@ isLogin();
     <div class="main bg-light">
         <h4>Dashboard</h4>
         <div class="row">
-            <div class="col-6 col-lg-3">
-                <div class="card ipk">
+            <div class="col-6 col-lg-3 pb-3">
+                <div class="card ipk h-100">
                     <h3>IPK</h3>
                     <hr>
                     <div class="value">3,39</div>
@@ -139,32 +162,32 @@ isLogin();
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3">
-                <div class="card semester">
+            <div class="col-6 col-lg-3 pb-3">
+                <div class="card semester h-100">
                     <h3>Semester</h3>
                     <hr>
                     <div class="value">2</div>
                     <div class="subtitle">Batas studi : 14 semester</div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3">
-                <div class="card sks">
+            <div class="col-6 col-lg-3 pb-3">
+                <div class="card sks h-100">
                     <h3>Jumlah SKS</h3>
                     <hr>
                     <div class="value">19 SKS</div>
-                    <div class="subtitle">125 SKS lagi untuk lulus</div>
+                    <div class="subtitle">SKS harus dicapai sampai 144 untuk lulus</div>
                 </div>
             </div>
-            <div class="col-6 col-lg-3">
-                <div class="card sks">
+            <div class="col-6 col-lg-3 pb-3">
+                <div class="card sks h-100">
                     <h3>Tagihan</h3>
                     <hr>
-                    <div class="value">Rp 1,000,000</div>
+                    <div class="value">Rp&nbsp;<?= number_format($_SESSION['login']['tagihan']['tagihan'], 0,',','.') ?></div>
                     <div class="subtitle">Total tunggakan terakhir</div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card grafik">
+            <div class="col-12 pb-3">
+                <div class="card grafik h-100">
                     <h3>Grafik IPS dan IPK</h3>
                     <hr>
                     <div class="value">Kepengennya gini, Angka dibawah itu Semester, Angka di samping kiri itu IPS/IPK nya</div>

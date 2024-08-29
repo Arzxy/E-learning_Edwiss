@@ -2,6 +2,24 @@
 require_once 'helper/auth.php';
 require_once 'helper/connection.php';
 
+$nim = $_SESSION['login']['mahasiswa_datadiri']['nim'];
+$tabels = [
+    'mahasiswa_datadiri', 
+    'mahasiswa_akademik', 
+    'mahasiswa_alamat', 
+    'mahasiswa_biodata_ayah', 
+    'mahasiswa_biodata_ibu',
+    'tagihan'
+];
+foreach ($tabels as $tabel) {
+    $sql = "SELECT * FROM $tabel WHERE nim='$nim' LIMIT 1";
+    $result = mysqli_query($connection, $sql);
+    $data = mysqli_fetch_assoc($result);
+    if ($data) {
+        $_SESSION['login'][$tabel] = $data;
+    }
+}
+
 isLogin();
 ?>
 
@@ -13,7 +31,11 @@ isLogin();
     <title>Bahan & Tugas - Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-    <style>
+
+    <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   
+   <style>
         /* WAJIB ADA SETIAP PAGE */
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
         :root {

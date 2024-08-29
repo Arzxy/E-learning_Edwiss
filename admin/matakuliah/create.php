@@ -2,6 +2,7 @@
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
 $jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
+$dosen = mysqli_query($connection, "SELECT * FROM dosen");
 ?>
 
 <section class="section">
@@ -44,12 +45,32 @@ $jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
                 </td>
               </tr>
               <tr>
+                <td>Dosen</td>
+                <td>
+                  <div id="dosen_pengampus" style="display: block;">
+                    <select class="form-control">
+                      <option value="">--Pilih Dosen PA/Wali--</option>
+                    </select>
+                  </div>
+                  <select class="form-control" name="dosen_pengampu" id="dosen_pengampu" style="display: none;" required>
+                    <option value="">--Pilih Dosen PA/Wali--</option>
+                    <?php
+                    while ($r = mysqli_fetch_array($dosen)) :
+                    ?>
+                      <option value="<?= $r['id'] ?>" data-jurusan="<?= $r['jurusan'] ?>"><?= $r['nama_dosen'] ?></option>
+                    <?php
+                    endwhile;
+                    ?>
+                  </select>
+                </td>
+              </tr>
+              <tr>
                 <td>Semester</td>
                 <td>
                   <select class="form-control" name="semester" id="semester" required>
                     <option value="">--Pilih Semester--</option>
                     <?php
-                    for ($x = 1; $x <= 12; $x++) {
+                    for ($x = 1; $x <= 14; $x++) {
                     ?>
                       <option value=<?= $x ?>><?= $x ?></option>
                     <?php
@@ -74,3 +95,30 @@ $jurusan = mysqli_query($connection, "SELECT * FROM jurusan");
 <?php
 require_once '../layout/_bottom.php';
 ?>
+
+<script>
+  document.getElementById('nama_jurusan').addEventListener('change', function() {
+    var selectedJurusan = this.value;
+    var dosenPa = document.getElementById('dosen_pengampu');
+    var dosenPaa = document.getElementById('dosen_pengampus');
+    
+    if (selectedJurusan !== "") {
+        dosenPa.style.display = 'block';
+        dosenPaa.style.display = 'none';
+    } else {
+        dosenPa.style.display = 'none';
+        dosenPaa.style.display = 'block';
+    }
+
+    for (var i = 0; i < dosenPa.options.length; i++) {
+      var option = dosenPa.options[i];
+      var jurusan = option.getAttribute('data-jurusan');
+
+      if (jurusan === selectedJurusan || option.value === "") {
+        option.style.display = 'block';
+      } else {
+        option.style.display = 'none';
+      }
+    }
+  });
+</script>

@@ -2,6 +2,24 @@
 require_once 'helper/auth.php';
 require_once 'helper/connection.php';
 
+$nim = $_SESSION['login']['mahasiswa_datadiri']['nim'];
+$tabels = [
+    'mahasiswa_datadiri', 
+    'mahasiswa_akademik', 
+    'mahasiswa_alamat', 
+    'mahasiswa_biodata_ayah', 
+    'mahasiswa_biodata_ibu',
+    'tagihan'
+];
+foreach ($tabels as $tabel) {
+    $sql = "SELECT * FROM $tabel WHERE nim='$nim' LIMIT 1";
+    $result = mysqli_query($connection, $sql);
+    $data = mysqli_fetch_assoc($result);
+    if ($data) {
+        $_SESSION['login'][$tabel] = $data;
+    }
+}
+
 isLogin();
 ?>
 
@@ -13,6 +31,10 @@ isLogin();
     <title>Biodata - Mahasiswa</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+
+    <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <style>
         /* WAJIB ADA SETIAP PAGE */
         @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
@@ -162,7 +184,7 @@ isLogin();
                     <p class="label-p">Profile picture</p>
                     <div class="flex gap-3 gap-lg-5 profile_picture pb-custom-8px">
                         <div class="bg-green-light p-3 rounded">
-                            <img width="150" height="150" src="../assets/image/profile_newbie.png" alt="">
+                            <img width="150" height="150" src="../<?= $_SESSION['login']['mahasiswa_datadiri']['link_profile'] ?>" alt="">
                         </div>
                         <div>
                             <label for="file-upload" class="custom-file-upload rounded-2">
@@ -175,19 +197,30 @@ isLogin();
                     <p class="label-p">Email</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_email" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_email" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['email'] ?>">
                         </div>
                     </div>
                     <p class="label-p">No. Handphone</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_nohp" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_nohp" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['no_handphone'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Jenis Kelamin</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
                             <select id="mahasiswa_jk" class="form-select form-select-sm">
+                                <?php 
+                                if($_SESSION['login']['mahasiswa_datadiri']['jenis_kelamin'] != "") {
+                                ?>
+                                <option value="<?= $_SESSION['login']['mahasiswa_datadiri']['jenis_kelamin'] ?>"><?= $_SESSION['login']['mahasiswa_datadiri']['jenis_kelamin'] ?> (Dipilih)</option>
+                                <?php
+                                } else {
+                                ?>
+                                <option value=""></option>
+                                <?php 
+                                }
+                                ?>
                                 <option value="Laki-laki">Laki-laki&ensp;</option>
                                 <option value="Perempuan">Perempuan&ensp;</option>
                             </select>
@@ -198,36 +231,47 @@ isLogin();
                     <p class="label-p">Nama Mahasiswa</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_nama" class="form-control" size="100" value="MUHAMMAD AKMAL RIZKI" disabled>
+                            <input type="text" id="mahasiswa_nama" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['nama'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">NIK</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_nik" class="form-control" size="100" value="" disabled>
+                            <input type="text" id="mahasiswa_nik" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['nik'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">NPWP</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_npwp" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_npwp" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['npwp'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Tempat Lahir</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_tempatlahir" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_tempatlahir" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['tempat_lahir'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Tanggal Lahir</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_tanggallahir" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_tanggallahir" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_datadiri']['tanggal_lahir'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Agama</p>
                     <div class="flex profile_picture pb-3">
                         <select id="mahasiswa_agama" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_datadiri']['agama'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_datadiri']['agama'] ?>"><?= $_SESSION['login']['mahasiswa_datadiri']['agama'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Islam">Islam&ensp;</option>
                             <option value="Kristen">Kristen&ensp;</option>
                             <option value="Hindu">Hindu&ensp;</option>
@@ -249,38 +293,47 @@ isLogin();
                     <p class="label-p">Perguruan Tinggi</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="Edwiss School" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['perguruan_tinggi'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">NIM/NPM</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="202304023" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['nim'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Program Studi</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="D4 - Teknologi Rekayasa Perangkat Lunak" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['program_studi'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Angkatan</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="2023" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['angkatan'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Status</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input style="background-color: #4caf50; color: #fff; border-color: #4caf50;"  type="text" class="form-control" size="100" value="Aktif" disabled>
-                            <!-- Khusus Tidak Aktif <input style="background-color: #d80000; color: #fff; border-color: #d80000;"  type="text" class="form-control" size="100" value="Tidak Aktif" disabled> -->
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_akademik']['status'] == "Aktif") {
+                            ?>
+                                <input style="background-color: #4caf50; color: #fff; border-color: #4caf50;"  type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['status'] ?>" disabled>
+                            <?php 
+                            } else {
+                            ?>
+                                <input style="background-color: #d80000; color: #fff; border-color: #d80000;"  type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['status'] ?>" disabled>
+                            <?php 
+                            }
+                            ?>
                         </div>
                     </div>
                     <p class="label-p">Jenis Kelas</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="Reguler 1" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['jenis_kelas'] ?>" disabled>
                         </div>
                     </div>
                 </div>
@@ -288,37 +341,37 @@ isLogin();
                     <p class="label-p">Dosen PA/Wali</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="MUHAMMAD NUGRAHA M.Eng" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['dosen_pa'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Jalur Pendaftaran</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="Mandiri" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['jalur_pendaftaran'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Gelombang Masuk</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="1" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['gelombang_masuk'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Tanggal Masuk</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="18 September 2023" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['tanggal_masuk'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Periode Masuk</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="2023" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['periode_masuk'] ?>" disabled>
                         </div>
                     </div>
                     <p class="label-p">Periode Akhir</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" size="100" value="2029" disabled>
+                            <input type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_akademik']['periode_akhir'] ?>" disabled>
                         </div>
                     </div>
                 </div>
@@ -330,7 +383,7 @@ isLogin();
                     <p class="label-p">Jalan</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_alamat" class="form-control" size="100" value="Perumahan Griya Mukti blok i/17, Ciwareng, Babakancikao, Purwakarta">
+                            <input type="text" id="mahasiswa_alamat" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['jalan'] ?>">
                         </div>
                     </div>
                     <div class="flex gap-5">
@@ -338,7 +391,7 @@ isLogin();
                             <p class="label-p">RT</p>
                             <div class="flex profile_picture pb-3">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" id="mahasiswa_rt" class="form-control" size="100" value="007">
+                                    <input type="text" id="mahasiswa_rt" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['rt'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -346,7 +399,7 @@ isLogin();
                             <p class="label-p">RW</p>
                             <div class="flex profile_picture pb-3">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" id="mahasiswa_rw" class="form-control" size="100" value="006">
+                                    <input type="text" id="mahasiswa_rw" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['rw'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -354,12 +407,23 @@ isLogin();
                     <p class="label-p">Kode Pos</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_kodepos" class="form-control" size="100" value="41151">
+                            <input type="text" id="mahasiswa_kodepos" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['kode_pos'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Tinggal</p>
                     <div class="flex profile_picture pb-3">
                         <select id="mahasiswa_tinggal" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_alamat']['tinggal'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_alamat']['tinggal'] ?>"><?= $_SESSION['login']['mahasiswa_alamat']['tinggal'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Bersama Orang Tua">Bersama Orang Tua&ensp;</option>
                             <option value="Wali">Wali&ensp;</option>
                             <option value="Kost">Kost&ensp;</option>
@@ -371,6 +435,17 @@ isLogin();
                     <p class="label-p">Transportasi</p>
                     <div class="flex profile_picture pb-3">
                         <select id="mahasiswa_transportasi" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_alamat']['transportasi'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_alamat']['transportasi'] ?>"><?= $_SESSION['login']['mahasiswa_alamat']['transportasi'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Jalan Kaki">Jalan Kaki&ensp;</option>
                             <option value="Sepeda Motor">Sepeda Motor Pribadi&ensp;</option>
                             <option value="Angkutan Umum">Angkutan Umum&ensp;</option>
@@ -383,31 +458,31 @@ isLogin();
                     <p class="label-p">Dusun</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_dusun" class="form-control" size="100" value="">
+                            <input type="text" id="mahasiswa_dusun" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['dusun'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Kelurahan</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_kelurahan" class="form-control" size="100" value="Ciwareng">
+                            <input type="text" id="mahasiswa_kelurahan" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['kelurahan'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Kecamatan</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_kecamatan" class="form-control" size="100" value="Kec. Babakancikao">
+                            <input type="text" id="mahasiswa_kecamatan" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['kecamatan'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Kota</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_kota" class="form-control" size="100" value="Purwakarta">
+                            <input type="text" id="mahasiswa_kota" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['kota'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Provinsi</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="mahasiswa_provinsi" class="form-control" size="100" value="Jawabarat">
+                            <input type="text" id="mahasiswa_provinsi" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_alamat']['provinsi'] ?>">
                         </div>
                     </div>
                 </div>
@@ -423,36 +498,47 @@ isLogin();
                     <p class="label-p">Nama Lengkap</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_nama" class="form-control" size="100" value="">
+                            <input type="text" id="ibu_nama" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['nama_lengkap'] ?>">
                         </div>
                     </div>
                     <p class="label-p">NIK</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_nik" class="form-control" size="100" value="Purwakarta">
+                            <input type="text" id="ibu_nik" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['nik'] ?>">
                         </div>
                     </div>
                     <p class="label-p">No. Handphone</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_nohp" class="form-control" size="100" value="Ciwareng">
+                            <input type="text" id="ibu_nohp" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['no_handphone'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Email</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_email" class="form-control" size="100" value="Kec. Babakancikao">
+                            <input type="text" id="ibu_email" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['email'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Tanggal Lahir</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_tanggallahir" class="form-control" size="100" value="Jawabarat">
+                            <input type="text" id="ibu_tanggallahir" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['tanggal_lahir'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Status Hidup</p>
                     <div class="flex profile_picture pb-3">
                         <select id="ibu_statushidup" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_biodata_ibu']['status_hidup'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['status_hidup'] ?>"><?= $_SESSION['login']['mahasiswa_biodata_ibu']['status_hidup'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Hidup">Hidup&ensp;</option>
                             <option value="Meninggal">Meninggal&ensp;</option>
                         </select>
@@ -460,18 +546,29 @@ isLogin();
                     <p class="label-p">Alamat</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input id="ibu_alamat" type="text" class="form-control" size="100" value="Perumahan Griya Mukti blok i/17, Ciwareng, Babakancikao, Purwakarta">
+                            <input id="ibu_alamat" type="text" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['alamat'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Kota</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ibu_kota" class="form-control" size="100" value="Purwakarta">
+                            <input type="text" id="ibu_kota" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['kota'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Pendidikan</p>
                     <div class="flex profile_picture pb-3">
                         <select id="ibu_pendidikan" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_biodata_ibu']['pendidikan'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_biodata_ibu']['pendidikan'] ?>"><?= $_SESSION['login']['mahasiswa_biodata_ibu']['pendidikan'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Tidak sekolah">Tidak sekolah</option>
                             <option value="PAUD">PAUD</option>
                             <option value="TK / sederajat">TK / sederajat</option>
@@ -504,36 +601,47 @@ isLogin();
                     <p class="label-p">Nama Lengkap</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_nama" class="form-control" size="100" value="">
+                            <input type="text" id="ayah_nama" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['nama_lengkap'] ?>">
                         </div>
                     </div>
                     <p class="label-p">NIK</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_nik" class="form-control" size="100" value="Purwakarta">
+                            <input type="text" id="ayah_nik" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['nik'] ?>">
                         </div>
                     </div>
                     <p class="label-p">No. Handphone</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_nohp" class="form-control" size="100" value="Ciwareng">
+                            <input type="text" id="ayah_nohp" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['no_handphone'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Email</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_email" class="form-control" size="100" value="Kec. Babakancikao">
+                            <input type="text" id="ayah_email" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['email'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Tanggal Lahir</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_tanggallahir" class="form-control" size="100" value="Jawabarat">
+                            <input type="text" id="ayah_tanggallahir" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['tanggal_lahir'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Status Hidup</p>
                     <div class="flex profile_picture pb-3">
                         <select id="ayah_statushidup" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_biodata_ayah']['status_hidup'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['status_hidup'] ?>"><?= $_SESSION['login']['mahasiswa_biodata_ayah']['status_hidup'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Hidup">Hidup&ensp;</option>
                             <option value="Meninggal">Meninggal&ensp;</option>
                         </select>
@@ -541,18 +649,29 @@ isLogin();
                     <p class="label-p">Alamat</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_alamat" class="form-control" size="100" value="Perumahan Griya Mukti blok i/17, Ciwareng, Babakancikao, Purwakarta">
+                            <input type="text" id="ayah_alamat" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['alamat'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Kota</p>
                     <div class="flex profile_picture pb-3">
                         <div class="input-group input-group-sm">
-                            <input type="text" id="ayah_kota" class="form-control" size="100" value="Purwakarta">
+                            <input type="text" id="ayah_kota" class="form-control" size="100" value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['kota'] ?>">
                         </div>
                     </div>
                     <p class="label-p">Pendidikan</p>
                     <div class="flex profile_picture pb-3">
                         <select id="ayah_pendidikan" class="form-select form-select-sm">
+                            <?php 
+                            if($_SESSION['login']['mahasiswa_biodata_ayah']['pendidikan'] != "") {
+                            ?>
+                            <option value="<?= $_SESSION['login']['mahasiswa_biodata_ayah']['pendidikan'] ?>"><?= $_SESSION['login']['mahasiswa_biodata_ayah']['pendidikan'] ?> (Dipilih)</option>
+                            <?php
+                            } else {
+                            ?>
+                            <option value=""></option>
+                            <?php 
+                            }
+                            ?>
                             <option value="Tidak sekolah">Tidak sekolah</option>
                             <option value="PAUD">PAUD</option>
                             <option value="TK / sederajat">TK / sederajat</option>

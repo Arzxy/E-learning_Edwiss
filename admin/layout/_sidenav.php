@@ -16,7 +16,7 @@
       </li>
       <li class="menu-header">Feature</li>
       <li>
-        <a href="../jurusan/index.php" class="nav-link"><i class="fas fa-bullhorn"></i> <span>Info Singkat</span></a>
+        <a href="../info_singkat/index.php" class="nav-link"><i class="fas fa-bullhorn"></i> <span>Info Singkat</span></a>
       </li>
       <li>
         <a href="../dosen/index.php" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> <span>Dosen</span></a>
@@ -25,7 +25,7 @@
         <a href="../mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Mahasiswa</span></a>
       </li>
       <li>
-        <a href="../tagihan_mahasiswa/index.php" class="nav-link"><i class="fas fa-user-graduate"></i> <span>Tagihan Mahasiswa</span></a>
+        <a href="../tagihan_mahasiswa/index.php" class="nav-link"><i class="fas fa-dollar-sign"></i> <span>Tagihan Mahasiswa</span></a>
       </li>
       <li>
         <a href="../matakuliah/index.php" class="nav-link"><i class="fas fa-book-open"></i> <span>Mata Kuliah</span></a>

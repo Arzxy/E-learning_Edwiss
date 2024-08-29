@@ -6,8 +6,9 @@ $kode_matkul = $_POST['kode_matkul'];
 $nama_matkul = $_POST['nama_matkul'];
 $sks = $_POST['sks'];
 $nama_jurusan = $_POST['nama_jurusan'];
+$dosen_pengampu = $_POST['dosen_pengampu'];
 
-$query = mysqli_query($connection, "UPDATE matakuliah SET nama_matkul = '$nama_matkul', sks = '$sks', jurusan = '$nama_jurusan'  WHERE kode_matkul = '$kode_matkul'");
+$query = mysqli_query($connection, "UPDATE matakuliah SET nama_matkul = '$nama_matkul', sks = '$sks', jurusan = '$nama_jurusan', dosen = '$dosen_pengampu' WHERE kode_matkul = '$kode_matkul'");
 if ($query) {
   $_SESSION['info'] = [
     'status' => 'success',

@@ -11,7 +11,25 @@ if (isset($_POST['submit'])) {
 
   $row = mysqli_fetch_assoc($result);
   if ($row) {
-    $_SESSION['login'] = $row;
+    // YANG INI
+     $_SESSION['login']['mahasiswa_datadiri'] = $row;
+     $tables = [
+         'mahasiswa_akademik', 
+         'mahasiswa_alamat', 
+         'mahasiswa_biodata_ayah', 
+         'mahasiswa_biodata_ibu',
+         'tagihan'
+     ];
+     foreach ($tables as $table) {
+         $sql = "SELECT * FROM $table WHERE nim='$nim' LIMIT 1";
+         $result = mysqli_query($connection, $sql);
+         $data = mysqli_fetch_assoc($result);
+         if ($data) {
+             $_SESSION['login'][$table] = $data;
+         }
+     }
+    // SAMPE SI
+    // PAKAI YANG ATAS FULL $_SESSION['login'] = $row;
     header('Location: mahasiswa/index.php');
   } else {
     $_SESSION['info'] = [
@@ -21,7 +39,7 @@ if (isset($_POST['submit'])) {
   }
 }
 
-$result = mysqli_query($connection, "SELECT * FROM info_singkat");
+$result = mysqli_query($connection, "SELECT * FROM info_singkat ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +138,7 @@ $result = mysqli_query($connection, "SELECT * FROM info_singkat");
                                     Portalnya Mahasiswa
                                 </div>
                                 <div style="padding-bottom: 5px;">
-                                    <label for="nim" style="font-size: 13px; color: #0000008a;">Masukkan email/ID/NIM</label>
+                                    <label for="nim" style="font-size: 13px; color: #0000008a;">Masukkan NIM</label>
                                     <input id="nim" name="nim" style="width: 100%" type="text">
                                 </div>
                                 <div style="padding-bottom: 30px;">
@@ -174,7 +192,7 @@ $result = mysqli_query($connection, "SELECT * FROM info_singkat");
                             ?>
 
                             <div style="padding-top: 10px;">
-                                <div style="background-color: #fff; color: #000; border-radius: 12px; max-height: 375px; padding: 22px; display: flex;">
+                                <div style="background-color: #fff; color: #000; border-radius: 12px; max-height: 375px; max-width: 488px; padding: 22px; display: flex;">
                                     <div style="padding-right: 10px;">
                                     <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#85d95b" d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192h80v56H48V192zm0 104h80v64H48V296zm128 0h96v64H176V296zm144 0h80v64H320V296zm80-48H320V192h80v56zm0 160v40c0 8.8-7.2 16-16 16H320V408h80zm-128 0v56H176V408h96zm-144 0v56H64c-8.8 0-16-7.2-16-16V408h80zM272 248H176V192h96v56z"/></svg>
                                     </div>
