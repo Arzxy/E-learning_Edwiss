@@ -1,6 +1,6 @@
 # 📁 Nama Proyek
 
-Aplikasi Web ini dirancang dari request dosen hasil outputnya adalah untuk memudahan dalam absensi
+Aplikasi Web ini dirancang untuk Lomba ICONIT. Outputnya adalah tampilan SIAKAD/Kampus Belajar
 
 ---
 
