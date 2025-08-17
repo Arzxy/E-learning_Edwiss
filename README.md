@@ -15,3 +15,6 @@ Proyek ini dibangun bersama oleh beberapa kontributor. Berikut daftar kolaborato
 | Arya Maulana   | [@aoki110803](https://github.com/aoki110803) | Backend             |
 
 ---
+
+> 📌 *Project ini bersifat open-source dan dapat dikembangkan lebih lanjut sesuai kebutuhan.*
+
